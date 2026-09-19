@@ -1,9 +1,7 @@
 .section .data  // aqui voy a declarar los datos
 
 
-// -------------------------
 // menu principal
-// -------------------------
 
 menu:  // etiqueta que marca donde empieza el menu
     // estas lineas guardan el texto del menu en memoria
@@ -25,9 +23,7 @@ menu_fin:
 
 
 
-// -------------------------
 // mensajes para pedir numeros
-// -------------------------
 
 msg_numero1:
     .ascii "\nIngrese el primer numero: "
@@ -46,9 +42,7 @@ msg_numero2_fin:
 
 
 
-// -------------------------
 // mensaje del resultado
-// -------------------------
 
 msg_resultado:
     .ascii "Resultado: "
@@ -81,9 +75,7 @@ salto_linea:
 
 
 
-// -------------------------
 // mensajes temporales
-// -------------------------
 
 msg_multiplicacion:
     .ascii "\nseleccionaste multiplicacion\n"
@@ -118,9 +110,7 @@ msg_factorial_fin:
 
 
 
-// -------------------------
 // mensajes de control
-// -------------------------
 
 msg_invalida:
     .ascii "\nopcion invalida, intente nuevamente\n"
@@ -214,9 +204,7 @@ buffer_salida:
 
 
 
-// -------------------------
 // inicio del programa
-// -------------------------
 
 _start:
 
@@ -224,9 +212,7 @@ _start:
 
 
 
-// -------------------------
 // mostrar y leer el menu
-// -------------------------
 
 mostrar_menu:
 
@@ -300,9 +286,7 @@ mostrar_menu:
 
 
 
-// -------------------------
 // suma
-// -------------------------
 
 opcion_suma:
 
@@ -359,9 +343,7 @@ opcion_suma:
 
 
 
-// -------------------------
 // resta
-// -------------------------
 
 opcion_resta:
 
@@ -418,9 +400,7 @@ opcion_resta:
 
 
 
-// -------------------------
 // multiplicacion
-// -------------------------
 
 opcion_multiplicacion:
 
@@ -477,9 +457,7 @@ opcion_multiplicacion:
 
 
 
-// -------------------------
 // division entera
-// -------------------------
 
 opcion_division:
 
@@ -541,9 +519,7 @@ opcion_division:
     b mostrar_menu
 
 
-// -------------------------
 // error de division
-// -------------------------
 
 error_division:
 
@@ -561,9 +537,7 @@ error_division:
 
 
 
-// -------------------------
 // potencia
-// -------------------------
 
 opcion_potencia:
 
@@ -673,9 +647,7 @@ error_exponente:
 
 
 
-// -------------------------
 // factorial
-// -------------------------
 
 opcion_factorial:
 
@@ -772,9 +744,7 @@ error_factorial:
 
 
 
-// -------------------------
 // opcion invalida
-// -------------------------
 
 opcion_invalida:
 
@@ -786,9 +756,7 @@ opcion_invalida:
 
 
 
-// -------------------------
 // subrutina para leer enteros
-// -------------------------
 
 leer_entero:
 
@@ -887,9 +855,7 @@ numero_convertido:
 
 
 
-// -------------------------
 // subrutina para imprimir enteros
-// -------------------------
 
 imprimir_entero:
 
@@ -1024,9 +990,7 @@ escribir_numero:
 
 
 
-// -------------------------
 // subrutina para imprimir texto
-// -------------------------
 
 imprimir_texto:
 
@@ -1038,9 +1002,7 @@ imprimir_texto:
 
 
 
-// -------------------------
 // salir del programa
-// -------------------------
 
 salir:
 
