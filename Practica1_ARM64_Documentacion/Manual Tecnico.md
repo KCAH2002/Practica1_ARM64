@@ -355,6 +355,10 @@ x21 = 23
 
 Esto permitio comprobar directamente el funcionamiento de la operacion en los registros del procesador.
 
+## Captura
+
+![alt text](imagen13.png)
+
 ---
 
 # 10. EVIDENCIAS

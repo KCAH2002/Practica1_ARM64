@@ -6,7 +6,7 @@ Para depurar la calculadora se utilizan dos terminales.
 
 # PREPARACION
 
-Antes de iniciar:
+Antes de iniciar: En una terminal
 
 ```bash
 cd ~/Practica1_ARM64
@@ -26,11 +26,9 @@ qemu-aarch64 -g 1234 ./calculadora
 
 El programa parecera detenido.
 
-Eso es correcto.
-
 QEMU esta esperando que GDB se conecte por el puerto `1234`.
 
-No escribir nada mas en esta terminal por el momento.
+"No escribir nada mas en esta terminal por el momento."
 
 ---
 
@@ -40,6 +38,11 @@ Ejecutar:
 
 ```bash
 gdb-multiarch calculadora
+```
+Puede no aparecer de inmediatoel gdb, preciona:
+
+```text
+c
 ```
 
 Cuando aparezca:
@@ -64,20 +67,28 @@ Esto conecta GDB con QEMU.
 
 ---
 
-# PONER BREAKPOINT EN LA SUMA
+# PONER BREAKPOINT EN LA SUMA 
+-----------------------------
 
 ```gdb
 break opcion_suma
 ```
 
-Luego:
+aqui nos sale algo como 
+
+```text
+Punto de interrupción 1 at 
+```
+
+
+Luego escribimos:
 
 ```gdb
 continue
 ```
+En ese momento GDB queda esperando.
 
-Ahora ir a la terminal 1.
-
+### En la terminal 1
 Debe aparecer el menu.
 
 Escribir:
@@ -86,17 +97,22 @@ Escribir:
 1
 ```
 
-Volver a la terminal 2.
+### En la terminal 2
+
 
 GDB debe mostrar algo parecido a:
 
 ```text
 Breakpoint 1, opcion_suma () at calculadora.s:...
 ```
+Y abajo: 
+```text
+(gdb)
+```
 
 ---
 
-# VER REGISTROS
+## VER REGISTROS
 
 ```gdb
 info registers x0 x19 x20 x21
@@ -104,11 +120,10 @@ info registers x0 x19 x20 x21
 
 Al inicio de la suma, x19, x20 y x21 pueden estar en cero.
 
-Es normal.
 
 ---
 
-# AVANZAR INSTRUCCION POR INSTRUCCION
+# AVAZEMOS AL PRIMER NUMERO
 
 ```gdb
 ni
@@ -124,79 +139,85 @@ x/i $pc
 
 `pc` es el program counter.
 
----
+Pero esta parte puedes saltartelo, escribimos `ni` alrededor de 3 veces hasta que aparezca:
 
-# PRIMER OPERANDO
+```text
+bl leer_entero ...
+```
+y despues:
 
-Avanzar hasta encontrar:
-
-```asm
-bl leer_entero
+```text
+(gdb)
 ```
 
-Ejecutar:
-
+Volvemos aescrinir:
 ```gdb
 ni
 ```
+Ahora GDB parecerá detenido.
 
-GDB parecera quedarse esperando.
-
-Ir a la terminal 1.
-
+---
+### Volvemos a la terminal 1
 Debe aparecer:
-
-```text
+```gdb
 Ingrese el primer numero:
 ```
 
-Escribir:
-
-```text
+Escribimos:
+```gdb
 15
 ```
 
-Volver a la terminal 2.
+y enter.
 
-Verificar x0:
+
+### Volver a la terminal 2
+
+Verificamos el primer numero:
 
 ```gdb
 info registers x0
 ```
 
-Se espera:
+Debe aparecer algo como :
 
 ```text
 x0    0xf    15
 ```
 
-Avanzar la instruccion:
-
-```asm
-mov x19, x0
+Ahora revisamos:
+```text
+x/i $pc
 ```
 
-con:
+Deberia estar cerca de:
+
+```text
+mov     x19, x0
+```
+
+ejecutamos con:
 
 ```gdb
 ni
 ```
 
-Verificar:
+luego:
 
 ```gdb
 info registers x19
 ```
 
-Resultado esperado:
+deberia mostrar algo como:
 
 ```text
 x19    0xf    15
 ```
+es decir primer numero registrado
 
 ---
 
-# SEGUNDO OPERANDO
+# segundo numero
 
 Avanzar con:
 
@@ -209,14 +230,18 @@ hasta encontrar nuevamente:
 ```asm
 bl leer_entero
 ```
+Alrededor de 3  `ni`
 
-Ejecutar:
+
+Entonces ejecutamos:
 
 ```gdb
 ni
 ```
+otra vez parece que esta esperando 
 
-Ir a terminal 1.
+
+### Ir a terminal 1
 
 Escribir:
 
@@ -224,7 +249,7 @@ Escribir:
 8
 ```
 
-Volver a GDB.
+### Volvemos a terminal 2
 
 Verificar:
 
@@ -238,17 +263,18 @@ Se espera:
 x0    0x8    8
 ```
 
-Ejecutar:
-
-```asm
-mov x20, x0
-```
-
 con:
 
 ```gdb
 ni
 ```
+hasta ver: 
+
+```asm
+mov x20, x0
+```
+
+
 
 Verificar:
 
@@ -320,8 +346,6 @@ x19 = primer operando = 15
 x20 = segundo operando = 8
 x21 = resultado = 23
 ```
-
-Esta es la mejor captura para la evidencia de GDB.
 
 ---
 
@@ -406,3 +430,29 @@ Si qemu queda abierto en la otra terminal:
 ```text
 ctrl + c
 ```
+
+
+# Captura
+
+![alt text](imagen13.png)
+
+
+# para el breakpoint
+
+puede ser cualquiera 
+
+Por ejemplo:
+
+```
+break opcion_resta
+break opcion_multiplicacion
+break opcion_division
+break opcion_potencia
+break opcion_factorial
+```
+
+Luego ponemos:
+```
+continue
+```
+y en la terminal de QEMU seleccionamos la opcion que corresponda y listo . :)
