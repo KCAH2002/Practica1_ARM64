@@ -235,7 +235,82 @@ qemu-aarch64 ./calculadora
 ```
 
 ---
+###  SECCIONES DEL PROGRAMA
 
+### `.section .data`
+
+Contiene datos inicializados.
+
+Ejemplos:
+
+- menu
+- mensajes
+- textos de error
+- `Resultado:`
+
+### `.section .bss`
+
+Reserva memoria para datos que se utilizan durante la ejecucion.
+
+Ejemplos:
+
+```text
+buffer_opcion
+buffer_numero
+buffer_salida
+```
+
+### `.section .text`
+
+Contiene el codigo ejecutable.
+
+---
+### SYSCALLS UTILIZADAS
+
+| syscall | numero | uso |
+|---|---:|---|
+| read | 63 | leer teclado |
+| write | 64 | imprimir |
+| exit | 93 | terminar programa |
+
+---
+
+## REGISTROS IMPORTANTES
+
+| registro | uso |
+|---|---|
+| x0 | argumentos, resultados y syscalls |
+| x1 | direcciones de memoria |
+| x2 | cantidad de bytes |
+| x8 | numero de syscall |
+| x19 | primer operando o valor principal |
+| x20 | segundo operando o resultado segun operacion |
+| x21 | resultado o contador segun operacion |
+| x22 | contador de potencia |
+
+---
+
+### ENSAMBLAR
+
+```bash
+aarch64-linux-gnu-as -g -o calculadora.o calculadora.s
+```
+
+---
+
+### ENLAZAR
+
+```bash
+aarch64-linux-gnu-ld -o calculadora calculadora.o
+```
+
+---
+
+### EJECUTAR
+
+```bash
+qemu-aarch64 ./calculadora
+```
 # 9. DEPURACION CON GDB
 
 Para realizar la depuracion se inicio QEMU en modo remoto:
@@ -286,58 +361,49 @@ Esto permitio comprobar directamente el funcionamiento de la operacion en los re
 
 ## evidencia 1 - menu principal
 
-Insertar captura del menu.
+![alt text](image-1.png)
 
 ## evidencia 2 - suma
 
-Insertar captura de una suma correcta.
+![alt text](image-2.png)
 
 ## evidencia 3 - resta
 
-Insertar captura de una resta.
+![alt text](image-3.png)
 
 ## evidencia 4 - multiplicacion
 
-Insertar captura de una multiplicacion.
+![alt text](image-4.png)
 
 ## evidencia 5 - division
 
-Insertar captura de una division entera.
+![alt text](image-5.png)
 
 ## evidencia 6 - validacion de division entre cero
 
-Insertar captura.
+![alt text](image-6.png)
 
 ## evidencia 7 - potencia
-
-Insertar captura.
+![alt text](image-7.png)
 
 ## evidencia 8 - validacion de exponente negativo
-
-Insertar captura.
+![alt text](image-8.png)
 
 ## evidencia 9 - factorial
 
-Insertar captura.
+![alt text](image-9.png)
 
 ## evidencia 10 - factorial negativo
 
-Insertar captura.
+![alt text](image-10.png)
 
 ## evidencia 11 - opcion invalida
 
-Insertar captura.
+![alt text](image-11.png)
 
 ## evidencia 12 - gdb
 
-Insertar la captura donde se observa:
-
-```text
-x19 = 15
-x20 = 8
-x21 = 23
-```
-
+![alt text](image-12.png)
 ---
 
 # 11. CONCLUSIONES
